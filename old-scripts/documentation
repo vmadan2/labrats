@@ -1,0 +1,45 @@
+1. Install build deps 
+2. Download & Install Constellation
+3. Download & Install Golang
+4. Download & Install Quorum
+5. Download & Install Porosity
+6. Clean up raft$i and Qdata directories
+7. Create 7 password files, genesis.json file, 
+8. Create qdata/logs directory
+9. For each node:
+	9a. Create raft$i, qdata/node$i/keystore, qdata/node$i/geth, qdata/c$i directories.
+	9b. Create geth node config in qdata/node$i/geth.
+	9c. Add data to raft$i/static-nodes.json. 
+	9d. Create a new Ethereum account with passwords as password-file$i.txt.
+	9e. Stop all geth actions. 
+	9f. Generate Constellation Keys (--generatekeys = constellation_node_$i) for each in qdata/c$i/keystore. 
+	9g. Copy raft$i/keystore/$(sudo ls raft$i/keystore) qdata/node$i/keystore/acckey
+	9h. Copy raft$i/geth/nodekey qdata/node$i/geth/nodekey
+	9i. Copy raft$i/static-nodes.json to qdata/node$i/static-nodes.json
+10. Edit static-nodes.json file to add all nodes in the same order	
+11. Start stuff: for each node, do: 
+	11a. Initiate Constellation with conf command "constellation-node --url=https://127.0.0.$i:900$i/ --port=900$i --workdir=$DDIR --socket=tm.ipc --publickeys=tm.pub --privatekeys=tm.key --othernodes=https://127.0.0.1:9001/". 
+	11b. Initiate geth for each node with "geth --datadir qdata/node$i init genesis.json"
+	11c. 
+
+
+
+
+
+
+Main Folder
+	-> genesis.json
+	-> password $i.txt
+	-> Raft 
+		-> static-nodes.json
+		-> geth/nodekey
+		-> keystore
+	-> Qdata
+		-> Node $i
+			-> keystore 
+			-> geth
+			-> static-nodes.json
+		-> c $i
+			-> tm.key
+			-> tm.pub
+			-> tm.ipc
